@@ -6,11 +6,7 @@
   </head>
   <body>
     <?php
-    $link = mysqli_connect('', '', '', '');
-    if (mysqli_connect_errno()) {
-      die("データベースに接続できません:" . mysqli_connect_error() . "\n");
-    } else {
-      echo "データベースの接続に成功しました。\n";
+       include_once ('header.php');
 
 $sql1 = <<< SQL1
     create table if not exists address_book_user(
