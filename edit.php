@@ -14,10 +14,7 @@
   </head>
   <body>
     <?php
-    $link = mysqli_connect('naviiiva.work', 'naviiiva_user', 'samurai1234', 'hiya');
-    if (mysqli_connect_errno()) {
-      die("データベースに接続できません:" . mysqli_connect_error() . "\n");
-    }
+       include_once ('header.php');
 
       $editData = $_POST["hensyu"];
       $sql = "select * from address_book where id = '$editData'";
