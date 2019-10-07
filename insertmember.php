@@ -9,11 +9,11 @@
     <?php
       include_once("header.php");
 
-    if (!$email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    if (!$email = filter_var($_POST['useremail'], FILTER_VALIDATE_EMAIL)) {
         echo '入力された値が不正です。';
         return false;
       }
-      //パスワードの正規表現
+
       if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i', $_POST['password'])) {
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
       } else {
@@ -21,17 +21,21 @@
         return false;
       }
 
-        $query = "INSERT INTO address_book_user (email, password
-        )VALUES ('$email', '$password'
+      $name = $_POST['namae'];
+      $address = $_POST['address'];
+      $yubin = $_POST['yubin'];
+
+        $query = "INSERT INTO adbook_user (useremail, password, namae, address, yubin
+        )VALUES ('$email', '$password', '$name', '$address', '$yubin'
         );";
-                // selectしてから表示↓は配列でしか出てこない。
-        if ($result = mysqli_query($link, $query)) {   // <- YesかNoの値だけ
+
+        if ($result = mysqli_query($link, $query)) {
             echo "登録完了";
 
-            
+
         }
        mysqli_close($link);
     ?>
-    <a href=index.php>back</a>
+    <a href=index.php>戻る</a>
   </body>
 </html>

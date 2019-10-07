@@ -15,11 +15,15 @@
   }
   </style>
   <body>
+    <?php
+    session_start();
+
+    ?>
     <div class="frame">
       <div class="register">
         <h2>登録内容確認</h2>
             <table border="1">
-              <tr> <!-- or $_SESSION-->
+              <tr>
                 <td>郵便番号</td>
                 <td><?php echo $_POST["zip11"]; ?></td>
               </tr>
@@ -62,11 +66,12 @@
             <input type="hidden" name="namae" value="<?php echo $_POST["namae"]; ?>">
             <input type="hidden" name="email" value="<?php echo $_POST["email"]; ?>">
             <input type="hidden" name="seibetsu" value="<?php echo $_POST["seibetsu"]; ?>">
+            <input type="hidden" name="useremail" value="<?php echo $_SESSION['useremail'] ?>">
             <input type="submit" name="soushin" value="送信">
           </form>
         </div>
       </div>
     </div>
-  <a href=register.php>back</a>
+  <a href=register.php>戻る</a>
   </body>
 </html>

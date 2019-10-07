@@ -9,12 +9,12 @@
       include_once('header.php');
       session_start();
 
-      // セッションを破棄
+
       $_SESSION = array();
       session_destroy();
     ?>
 
     <p>ログアウトしました。</p>
-    <a href="index.php">back</a>
+    <a href="index.php">戻る</a>
   </body>
 </html>

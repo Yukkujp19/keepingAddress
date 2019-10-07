@@ -41,7 +41,7 @@
           </form>
       </div>
     </div>
-    <a href=index.php>back</a>
+    <a href=index.php>戻る</a>
       <script src="https://ajaxzip3.github.io/ajaxzip3.js"></script>
   </body>
   </html>

@@ -9,18 +9,19 @@
     <?php
     include_once('header.php');
 
-    $delete = $_POST['unsubscribe'];
-    $sql = "DELETE FROM address_book_user WHERE email=`$delete`";
+    $sql = "DELETE FROM adbook_user WHERE useremail = '$_POST[unsubscribe]';";
       if ($deleteData = mysqli_query($link, $sql)){
         echo "退会しました。";
+        session_start();
         $_SESSION = array();
         session_destroy();
+
       }else{
         echo "退会出来ませんでした。";
       }
 
     mysqli_close($link);
     ?>
-  <a href="index.php">back</a>
+  <a href="index.php">戻る</a>
   </body>
 </html>

@@ -6,15 +6,38 @@
   </head>
   <body>
     <?php
-      session_start();
       include_once('header.php');
+      session_start();
 
-      if (!isset($_SESSION['email'])){
-        header("Location: login.html"); //強制的にログインページに飛ぶように
-        return; }
-
-      if($result2 = mysqli_query($link,"SELECT id as id,zip11 as 郵便番号,pref as 都道府県,city as 市区町村,addr11 as 住所,namae as 名前,bango as 番号,email as メール,seibetsu as 性別 from address_book_user")){ //id as 番号で書けば表記を表示させられる。
-
+      if (!isset($_SESSION['useremail'])){
+        header("Location: login.html");
+        return;
+      }
     ?>
+
+    <h1>マイページ</h1>
+    <?php
+      if($result2 = mysqli_query($link,"SELECT * from adbook_user where useremail='$_SESSION[useremail]'")){
+
+        foreach ($result2 as $key) {
+          $useremail = $key['useremail'];
+          $name = $key['namae'];
+          $address = $key['address'];
+          $yubin = $key['yubin'];
+
+          mysqli_close($link);
+        }
+      }
+    ?>
+          <label>メールアドレス：<?php echo $useremail;?></br>
+          <label>名前　　　　　：<?php echo $name;?></br>
+          <label>住所　　　　　：<?php echo $address;?></br>
+          <label>郵便番号　　　：<?php echo $yubin;?></br>
+
+          <form class"edit" action="mypageEdit.php" method="post">
+            <input type="hidden" name="myaccount" value="<?php echo $useremail;?>">
+            <input type="submit" name="mypage_edit" value="編集">
+          </form>
+          <a href="index.php">戻る</a></br>
   </body>
 </html>

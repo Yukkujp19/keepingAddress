@@ -7,8 +7,8 @@
   <body>
 
     <?php
-         include_once ('header.php');
-
+    include_once ('header.php');
+    session_start();
         $zip11 = $_POST["zip11"];
         $pref = $_POST["pref"];
         $city = $_POST["city"];
@@ -17,17 +17,18 @@
         $bango = $_POST["bango"];
         $email = $_POST["email"];
         $seibetsu = $_POST["seibetsu"];
+        $useremail = $_SESSION["useremail"];
 
-        $query = "INSERT INTO address_book (zip11, pref, city, addr11, namae, bango, email, seibetsu
-        )VALUES ('$zip11', '$pref', '$city', '$addr11', '$name', '$bango', '$email', '$seibetsu'
+        $query = "INSERT INTO adbook (zip11, pref, city, addr11, namae, bango, email, seibetsu, useremail
+        )VALUES ('$zip11', '$pref', '$city', '$addr11', '$name', '$bango', '$email', '$seibetsu', '$useremail'
         );";
-                // selectしてから表示↓は配列でしか出てこない。
-        if ($result = mysqli_query($link, $query)) {   // <- YesかNoの値だけ
+
+        if ($result = mysqli_query($link, $query)) {   
             echo "INSERTに成功しました。";
             }
-           }
+
            mysqli_close($link);
     ?>
-    <a href=index.php>back</a>
+    <a href=index.php>戻る</a>
   </body>
 </html>

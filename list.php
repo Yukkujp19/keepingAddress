@@ -1,23 +1,29 @@
 <?php
 include_once ('header.php');
 @session_start();
-if (!isset($_SESSION['email'])){
-  header("Location: login.html"); //強制的にログインページに飛ぶように
+if (!isset($_SESSION['useremail'])){
+  header("Location: login.html");
   return;
 }
 ?>
 
 <a href="register.php">新規連絡先</a>
-  
+
 <?php
-  if($result2 = mysqli_query($link,"SELECT id as id,zip11 as 郵便番号,pref as 都道府県,city as 市区町村,addr11 as 住所,namae as 名前,bango as 番号,email as メール,seibetsu as 性別 from address_book")){ //id as 番号で書けば表記を表示させられる。
+  if($result2 = mysqli_query($link,"SELECT id as id,zip11 as 郵便番号,pref as 都道府県,city as 市区町村,addr11 as 住所,namae as 名前,bango as 番号,email as メール,seibetsu as 性別 from adbook where useremail='$_SESSION[useremail]'")){
     echo "<table border=1>";
     $col = mysqli_fetch_fields($result2);
     echo "<tr>";
+
     echo "<th>";
     echo "編集";
     echo "</th>";
-    for ($i=0; $i<count($col); $i++ ){ //lengthは文字列の数を数える、配列数はcount()を用いる
+
+    echo "<th>";
+    echo "ハガキ";
+    echo "</th>";
+
+    for ($i=0; $i<count($col); $i++ ){
       echo "<th>";
       echo $col[$i] -> name;
       echo "</th>";
@@ -25,6 +31,7 @@ if (!isset($_SESSION['email'])){
     echo "<th>";
     echo "削除";
     echo "</th>";
+
     echo "</tr>";
 
     foreach ($result2 as $key) {
@@ -35,6 +42,14 @@ if (!isset($_SESSION['email'])){
       echo "<input type=\"submit\" name=\"edit\" value=\"".$key['id']."\">";
       echo "</form>";
       echo "</td>";
+
+      echo "<td>";
+      echo "<form class=\"letter\" action=\"hagaki.php\" method=\"post\">";
+      echo "<input type=\"hidden\" name=\"select\" value=\"".$key['id']."\">";
+      echo "<input type=\"submit\" name=\"hagaki\" value=\"ハガキ\">";
+      echo "</form>";
+      echo "</td>";
+
       foreach ($key as $address) {
         echo "<td>";
         echo $address;
